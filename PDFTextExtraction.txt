@@ -1,0 +1,33 @@
+from pathlib import Path
+from PyPDF2 import PdfReader
+
+#My Signature
+print ("*****PDF Text Extractor by page number: Written By Ayeleru Sola*****")
+
+# Input the path to the PDF file
+pdf_path = input("Enter Path to the PDF file: ")
+
+# Open the PDF file in binary mode
+with open(pdf_path, 'rb') as pdf_file:
+    # Create a PdfReader instance
+    pdf_reader = PdfReader(pdf_file)
+    
+    # Get the total number of pages in the PDF
+    num_pages = len(pdf_reader.pages)
+    print(f"Total number of pages in the PDF: {num_pages}")
+    
+    # Input the page number you want to extract
+    page_number = int(input("Enter the page number: "))
+    
+    # Check if the page number is valid
+    if 0 <= page_number < num_pages:
+        # Get the specified page
+        page = pdf_reader.pages[page_number - 1]
+        
+        # Extract the text from the page
+        text = page.extract_text()
+        
+        # Print the extracted text
+        print(f"Text extracted from page {page_number}:\n{text}")
+    else:
+        print("Invalid page number. Please enter a valid page number.")
